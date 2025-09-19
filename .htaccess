@@ -1,0 +1,28 @@
+RewriteEngine On
+
+# Redirigir todo el tráfico al index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+# Configuración de seguridad
+<Files ".env">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Configuración de tipos MIME
+AddType text/css .css
+AddType application/javascript .js
+
+# Configuración de caché para archivos estáticos
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/jpg "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/x-icon "access plus 1 month"
+</IfModule>
